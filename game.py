@@ -26,8 +26,9 @@ BLACK = (0,0,0)
 BLOCK_SIZE = 20
 SPEED = 20
 
-class SnakeGame:
-    
+#start the game and add the reset functionality to it.
+class SnakeGameAI:
+        
     def __init__(self, w=640, h=480):
         self.w = w
         self.h = h
@@ -35,19 +36,23 @@ class SnakeGame:
         self.display = pygame.display.set_mode((self.w, self.h))
         pygame.display.set_caption('Snake')
         self.clock = pygame.time.Clock()
-        
-        # init game state
+        self.reset()
+
+        # add in reset capability by repurposing the starting game snake position
+    def reset(self):
+                # init game state
         self.direction = Direction.RIGHT
-        
         self.head = Point(self.w/2, self.h/2)
         self.snake = [self.head, 
-                      Point(self.head.x-BLOCK_SIZE, self.head.y),
+                      Point(self.head.x-BLOCK_SIZE, self.head.y), 
                       Point(self.head.x-(2*BLOCK_SIZE), self.head.y)]
-        
+
         self.score = 0
         self.food = None
         self._place_food()
-        
+        self.frame_iteration = 0
+            #copy pasted my code for reset up until this point -Eli
+            
     def _place_food(self):
         x = random.randint(0, (self.w-BLOCK_SIZE )//BLOCK_SIZE )*BLOCK_SIZE 
         y = random.randint(0, (self.h-BLOCK_SIZE )//BLOCK_SIZE )*BLOCK_SIZE
